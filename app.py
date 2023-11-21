@@ -3,7 +3,7 @@ from cli import DatabaseCLI
 from flask_cors import CORS
 
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 CORS(app)
 # app = Flask(__name__)
@@ -59,7 +59,7 @@ def upd_command():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=8080, debug=True)
 
 # @app.route('/eventSearch')
 # def eventSearch():
