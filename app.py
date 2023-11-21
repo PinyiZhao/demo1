@@ -3,7 +3,7 @@ from cli import DatabaseCLI
 from flask_cors import CORS
 
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 CORS(app)
 # app = Flask(__name__)
