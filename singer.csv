@@ -1,0 +1,2 @@
+name,email,country,age
+str,str,str,int

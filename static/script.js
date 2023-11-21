@@ -3,11 +3,16 @@ const runAdd = "http://127.0.0.1:8080/run-add"
 const runDel = "http://127.0.0.1:8080/run-del"
 const runUpd = "http://127.0.0.1:8080/run-upd"
 
+const nosqlBotton = document.getElementById("NoSQL-btn")
+const relationBotton = document.getElementById("Relational-btn")
 const addBotton = document.getElementById("add-btn")
 const deleteBotton = document.getElementById("delete-btn")
 const updateBotton = document.getElementById("update-btn")
+
+
+
 document.getElementById('run-btn').addEventListener('click', async function() {
-  const code = document.getElementById('code-input').value;
+  const code = document.getElementById('code-input').value.trim();
   const response = await axios.get(runCommand, { params: {command: code}});
   console.log(response);
   // Here you would have the logic to run the code and get the output
@@ -18,7 +23,7 @@ document.getElementById('run-btn').addEventListener('click', async function() {
 });
 
 document.getElementById('select-btn').addEventListener('click', async function() {
-  const code = document.getElementById('code-input').value;
+  const code = document.getElementById('code-input').value.trim();
   const response = await axios.get(runCommand, { params: {command: code}});
   const res = response["data"]["output"];
   const tableHead = document.getElementById('table-header');
@@ -48,7 +53,7 @@ document.getElementById('select-btn').addEventListener('click', async function()
 });
 
 async function addBottonHandle() {
-  const addString = document.getElementById('code-input2').value;
+  const addString = document.getElementById('code-input2').value.trim();
   const addCommand = "insert into " + addString
   console.log(addCommand)
   const response = await  axios.get(runAdd, {params: {command: addCommand}})
@@ -56,7 +61,7 @@ async function addBottonHandle() {
   document.getElementById('console-output2').textContent = response["data"];
 }
 async function deleteBottonHandle() {
-  const delString = document.getElementById('code-input2').value;
+  const delString = document.getElementById('code-input2').value.trim();
   const delCommand = "delete from " + delString
   console.log(delCommand)
   const response = await  axios.get(runDel, {params: {command: delCommand}})
@@ -64,7 +69,7 @@ async function deleteBottonHandle() {
   document.getElementById('console-output2').textContent = response["data"];
 }
 async function updateBottonHandle() {
-  const updString = document.getElementById('code-input2').value;
+  const updString = document.getElementById('code-input2').value.trim();
   const updCommand = "update " + updString
   console.log(updCommand)
   const response = await  axios.get(runUpd, {params: {command: updCommand}})
@@ -72,6 +77,15 @@ async function updateBottonHandle() {
   document.getElementById('console-output2').textContent = response["data"];
 }
 
+async function nosql() {
+    window.location.href = 'http://127.0.0.1:8080';
+}
+async function mysql() {
+    window.location.href = 'http://127.0.0.1:8080/ysh';
+}
+
 addBotton.addEventListener("click", addBottonHandle);
 deleteBotton.addEventListener("click", deleteBottonHandle);
 updateBotton.addEventListener("click", updateBottonHandle);
+nosqlBotton.addEventListener("click", nosql);
+relationBotton.addEventListener("click", mysql);

@@ -71,5 +71,12 @@
             "sex": "string",
             "phone": "string"
         }
+    },
+    "singer": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "age": "int"
+        }
     }
 }
