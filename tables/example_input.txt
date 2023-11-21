@@ -19,3 +19,8 @@ select * from employees join projects on employees.id = projects.eid where emplo
 select employees.id from employees join projects on employees.id = projects.eid where employees.id = 1
 
 select count(id) from projects group by eid
+
+
+
+create table animals (id int, name string, color string, subject string, age int, sex string, number int, nickname string)
+create table tree (id int, name string, age int)
