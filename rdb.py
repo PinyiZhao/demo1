@@ -45,20 +45,6 @@ def evaluate_condition(row, condition, headers):
             return row_value != condition_value
 
     return False  # Condition is not valid
-
-def csv_to_json(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        # Read the first line as headers
-        headers = next(file).strip().split(',')
-
-        # Skip the second line (data types)
-        next(file)
-
-        # Read the remaining data
-        reader = csv.DictReader(file, fieldnames=headers)
-        data_list = [row for row in reader]
-
-        return json.dumps(data_list, indent=4)
     
 def read_csv_in_chunks_join(file_path, chunk_size=20):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -601,44 +587,80 @@ class API:
     def __init__(self, *args, **kwargs):
         print("YSH API init")
     
+    def csv_to_json(self,file_path):
+        print("csv_to_json")
+        with open(file_path, 'r', encoding='utf-8') as file:
+            # Read the first line as headers
+            headers = next(file).strip().split(',')
+
+            # Skip the second line (data types)
+            next(file)
+
+            # Read the remaining data
+            reader = csv.DictReader(file, fieldnames=headers)
+            data_list = [row for row in reader]
+
+            return json.dumps(data_list, indent=4)
+    
+    def handle_multiple_commands(self,input_command):
+        print("handle_multiple_commands")
+        input_commands = input_command.split(';')
+        count = 0
+        for command in input_commands:
+            if command:
+                command = command.replace('\n', '')
+                print(command)
+                self.handle_input(command)
+                count += 1
+                
+        return f"{count} commands executed successfully."
+            
+            
     def handle_input(self,input_command):
-    # try:
-        print(input_command)
-        db = Database()
-        parser = Parser()
-        command = input_command.strip()
+        if ';' in input_command:
+            return self.handle_multiple_commands(input_command)
 
-        if command.lower().startswith("show tables"):
-            print(db.display_tables())
+        try:  
+            print(input_command)
+            db = Database()
+            parser = Parser()
 
-        result = None
-        action = parser.parse(command)
-        print(action)
-        if isinstance(action, dict):
-            result = db.select_from(table_name=action['from'], conditions=action['conditions'], columns=action['columns'], join=action['join'], groupby=action['groupby'], order_by=action['orderby'])
-        else:
-            print(action[0])
-            if action[0] == "create_table":
-                result = db.create_table(action[1], action[2])
-                print(result)
-            elif action[0] == "insert_into":
-                result = db.insert_into(action[1], action[2])
-            elif action[0] == "display_table":
-                result = db.display_table(action[1])
-            elif action[0] == "delete_from":
-                result = db.delete_from(action[1], action[2])
-            elif action[0] == "update_set":
-                result = db.update_set(action[1], action[2], action[3])
-            elif action[0] == "select_from":
-                result = db.select_from(action[1], action[2])
+            command = input_command.strip()
+
+            if command.lower().startswith("show tables"):
+                print(db.display_tables())
+
+            result = None
+            action = parser.parse(command)
+            if isinstance(action, dict):
+                result = db.select_from(table_name=action['from'], conditions=action['conditions'], columns=action['columns'], join=action['join'], groupby=action['groupby'], order_by=action['orderby'])
+                return self.csv_to_json(result)
             else:
-                result = "Unknown command or not yet implemented."
-        print(csv_to_json(result))
-        return csv_to_json(result)
-        
-    # except Exception as e:
-    #     print(e)
-    # return results to api
+                if action[0] == "create_table":
+                    result = db.create_table(action[1], action[2])
+                    result = "Create Success!"
+                elif action[0] == "insert_into":
+                    result = db.insert_into(action[1], action[2])
+                    result = "Add Success!"
+                elif action[0] == "display_table":
+                    result = self.csv_to_json(db.display_table(action[1]))
+                elif action[0] == "delete_from":
+                    result = db.delete_from(action[1], action[2])
+                    result = "Delete Success!"
+                elif action[0] == "update_set":
+                    result = db.update_set(action[1], action[2], action[3])
+                    result = "Update Success!"
+                elif action[0] == "select_from":
+                    pirnt("select_from")
+                    result = db.select_from(action[1], action[2])
+                    return self.csv_to_json(result)
+                else:
+                    result = "Unknown command or not yet implemented."
+            return result
+            
+        except Exception as e:
+            print(e)
+            return "Invalid Command!"
     
 
 def read_csv_in_chunks(file_path, chunk_size=CHUNK_SIZE):
