@@ -4,13 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Code Editor</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js" defer></script>
 </head>
 <body>
 <div id="background" >
   <div class="box1">
-    <h1 style="color: white;">My NoSQL Database</h1>
+    <h1 style="color: white;">My NoSQL Database
+        <div class="butt">
+            <button id="NoSQL-btn">NoSQL</button>
+            <button id="Relational-btn">Relational</button>
+        </div>
+    </h1>
+
     <hr />
   </div>
   <div class="butt">
@@ -68,6 +74,7 @@ employees set age = 25 where id = 1
 </div>
 
 
-<script src="/static/script.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>

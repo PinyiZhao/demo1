@@ -4,7 +4,7 @@ from flask_cors import CORS
 from rdb import API
 
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 CORS(app)
 # app = Flask(__name__)

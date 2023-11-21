@@ -106,7 +106,7 @@ class Database:
             writer = csv.writer(file)
             writer.writerow([col for col, _ in schema])
             writer.writerow([col for _, col in schema])
-        return f"{table_name}.csv"
+        return f"{table_name}.csv created successfully"
 
     def insert_into(self, table_name, values):
         if table_name not in self.tables:
