@@ -1,7 +1,7 @@
-const runCommand = "http://127.0.0.1:5000/run-command"
-const runAdd = "http://127.0.0.1:5000/run-add"
-const runDel = "http://127.0.0.1:5000/run-del"
-const runUpd = "http://127.0.0.1:5000/run-upd"
+const runCommand = "http://127.0.0.1:8080/run-command"
+const runAdd = "http://127.0.0.1:8080/run-add"
+const runDel = "http://127.0.0.1:8080/run-del"
+const runUpd = "http://127.0.0.1:8080/run-upd"
 
 const addBotton = document.getElementById("add-btn")
 const deleteBotton = document.getElementById("delete-btn")
