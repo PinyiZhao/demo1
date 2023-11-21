@@ -43,5 +43,33 @@
         "schema": {
             "id": "int"
         }
+    },
+    "tree": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "age": "int"
+        }
+    },
+    "animals": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "color": "string",
+            "subject": "string",
+            "age": "int",
+            "sex": "string",
+            "number": "int",
+            "nickname": "string"
+        }
+    },
+    "person": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "ssn": "string",
+            "sex": "string",
+            "phone": "string"
+        }
     }
 }
