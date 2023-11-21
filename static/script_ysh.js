@@ -1,7 +1,7 @@
-const runCommand = "http://127.0.0.1:5000/run-command"
-const runAdd = "http://127.0.0.1:5000/run-add"
-const runDel = "http://127.0.0.1:5000/run-del"
-const runUpd = "http://127.0.0.1:5000/run-upd"
+const runCommand = "http://127.0.0.1:8080/run-ysh"
+const runAdd = "http://127.0.0.1:8080/run-ysh"
+const runDel = "http://127.0.0.1:8080/run-ysh"
+const runUpd = "http://127.0.0.1:8080/run-ysh"
 
 const addBotton = document.getElementById("add-btn")
 const deleteBotton = document.getElementById("delete-btn")
@@ -12,7 +12,7 @@ document.getElementById('run-btn').addEventListener('click', async function() {
   console.log(response);
   // Here you would have the logic to run the code and get the output
   // For demonstration purposes, we will just echo the input
-  const output = response['data']['output'];
+  const output = response['data'];
 
   document.getElementById('console-output').textContent = output;
 });
@@ -20,7 +20,7 @@ document.getElementById('run-btn').addEventListener('click', async function() {
 document.getElementById('select-btn').addEventListener('click', async function() {
   const code = document.getElementById('code-input').value;
   const response = await axios.get(runCommand, { params: {command: code}});
-  const res = response["data"]["output"];
+  const res = response["data"];
   const tableHead = document.getElementById('table-header');
   const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
    if (tableHead) {
@@ -49,27 +49,27 @@ document.getElementById('select-btn').addEventListener('click', async function()
 
 async function addBottonHandle() {
   const addString = document.getElementById('code-input2').value;
-  const addCommand = "insert into " + addString
+  const addCommand = addString
   console.log(addCommand)
   const response = await  axios.get(runAdd, {params: {command: addCommand}})
   console.log(response)
-  document.getElementById('console-output2').textContent = response["data"];
+  document.getElementById('console-output2').textContent = response["data"].length;
 }
 async function deleteBottonHandle() {
   const delString = document.getElementById('code-input2').value;
-  const delCommand = "delete from " + delString
+  const delCommand = delString
   console.log(delCommand)
   const response = await  axios.get(runDel, {params: {command: delCommand}})
   console.log(response)
-  document.getElementById('console-output2').textContent = response["data"];
+  document.getElementById('console-output2').textContent = response["data"].length;
 }
 async function updateBottonHandle() {
   const updString = document.getElementById('code-input2').value;
-  const updCommand = "update " + updString
+  const updCommand = updString
   console.log(updCommand)
   const response = await  axios.get(runUpd, {params: {command: updCommand}})
   console.log(response)
-  document.getElementById('console-output2').textContent = response["data"];
+  document.getElementById('console-output2').textContent = response["data"].length;
 }
 
 addBotton.addEventListener("click", addBottonHandle);
