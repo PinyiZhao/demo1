@@ -26,7 +26,9 @@ button {
 }
 
 #background {
+
   width: 1000px;
+
   height: auto;
   margin-top: 30px;
   margin-left: auto;
@@ -52,6 +54,7 @@ button {
   margin: 2px; /* 适当的外边距 */
   height: 400px;
   width:  600px;;
+
   padding: 5px;
   border-radius: 10px
 }
@@ -63,6 +66,7 @@ button {
   font-family: monospace;
 }
 #console {
+
   width: 480px;
   max-height: 400px;
   overflow: auto;
