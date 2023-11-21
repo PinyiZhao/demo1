@@ -120,7 +120,7 @@ class Database:
             writer = csv.writer(file)
             writer.writerow([col for col, _ in schema])
             writer.writerow([col for _, col in schema])
-        return f"{table_name}.csv"
+        return f"{table_name}.csv created successfully"
 
     def insert_into(self, table_name, values):
         if table_name not in self.tables:
@@ -606,7 +606,6 @@ class API:
         print(input_command)
         db = Database()
         parser = Parser()
-
         command = input_command.strip()
 
         if command.lower().startswith("show tables"):
@@ -614,11 +613,14 @@ class API:
 
         result = None
         action = parser.parse(command)
+        print(action)
         if isinstance(action, dict):
             result = db.select_from(table_name=action['from'], conditions=action['conditions'], columns=action['columns'], join=action['join'], groupby=action['groupby'], order_by=action['orderby'])
         else:
+            print(action[0])
             if action[0] == "create_table":
                 result = db.create_table(action[1], action[2])
+                print(result)
             elif action[0] == "insert_into":
                 result = db.insert_into(action[1], action[2])
             elif action[0] == "display_table":
