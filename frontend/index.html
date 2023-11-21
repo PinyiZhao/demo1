@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Code Editor</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js" defer></script>
+</head>
+<body>
+<div id="background" >
+  <div class="box1">
+    <h1 style="color: white;">My Database</h1>
+    <hr />
+  </div>
+  <div class="butt">
+    <h2 style="color: antiquewhite">Display the table</h2>
+    <button id="run-btn">Create</button>
+    <button id="select-btn">Select</button>
+  </div>
+  
+  <div class="row">
+    <div id="editor" class="col">
+      <textarea id="code-input" placeholder="Write your code here..."></textarea>
+    </div>
+
+    <div id="console" class="col">
+      <pre id="console-output">
+         <table id="data-table">
+              <thead>
+                  <tr id="table-header">
+                      <!-- 表头将会在这里插入 -->
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- 表格数据将会在这里插入 -->
+              </tbody>
+          </table>
+      </pre>
+    </div>
+  </div>
+  <hr />
+
+   <div class="butt">
+    <h2 style="color: antiquewhite">Data excution</h2>
+    <button id="add-btn" class="exc-btn">ADD</button>
+    <button id="delete-btn" class="exc-btn">DELETE</button>
+     <button id="update-btn" class="exc-btn">UPDATE</button>
+  </div>
+  <div class="row">
+    <div id="editor2" class="col">
+      <textarea id="code-input2" placeholder="Write your code here...
+eg:
+employees (id, name, age) values (1, Bill, 30)
+employees where age = 30
+employees set age = 25 where id = 1
+
+"></textarea>
+
+    </div>
+
+    <div id="console2" class="col">
+      <pre id="console-output2"></pre>
+    </div>
+  </div>
+
+  
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>

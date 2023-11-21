@@ -1,0 +1,21 @@
+create table employees (id int, name string, age int)
+insert into employees (id, name, age) values (1, Bill, 30)
+insert into employees (id, name, age) values (2, John, 25)
+delete from employees where age = 30
+insert into employees (id, name, age) values (1, Bill, 30)
+update employees set age = 25 where id = 1
+
+create table projects (id int, eid int, projectName string)
+insert into projects (id, eid, projectName) values (1, 1, Project1)
+insert into projects (id, eid, projectName) values (2, 2, Project2)
+insert into projects (id, eid, projectName) values (3, 1, Project3)
+
+
+select * from employees
+select * from projects
+select * from employees join projects on employees.id = projects.eid
+
+select * from employees join projects on employees.id = projects.eid where employees.id = 1
+select employees.id from employees join projects on employees.id = projects.eid where employees.id = 1
+
+select count(id) from projects group by eid

@@ -1,0 +1,47 @@
+{
+    "employees": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "age": "int"
+        }
+    },
+    "projects": {
+        "schema": {
+            "id": "int",
+            "eid": "int",
+            "projectName": "string"
+        }
+    },
+    "students": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "age": "int"
+        }
+    },
+    "instructors": {
+        "schema": {
+            "id": "int",
+            "name": "string"
+        }
+    },
+    "take": {
+        "schema": {
+            "id": "int",
+            "name": "string"
+        }
+    },
+    "employers": {
+        "schema": {
+            "id": "int",
+            "name": "string",
+            "age": "int"
+        }
+    },
+    "student": {
+        "schema": {
+            "id": "int"
+        }
+    }
+}
