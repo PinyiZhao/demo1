@@ -3,6 +3,8 @@ import os
 import re
 from collections import defaultdict
 import json
+import heapq
+import os
 
 
 CHUNK_SIZE = 20
@@ -425,6 +427,49 @@ class Database:
             writer.writerow(headers)  # Write headers
             writer.writerow(data_types)  # Write data types
             writer.writerows(sorted_data)
+        self.previous_temp_file = output_file_path
+        self.temp_table_count += 1
+        
+    def merge_sort_csv(self, orderby_columns, chunk_size=CHUNK_SIZE):
+        if not orderby_columns:
+            return
+
+        file_path = self.previous_temp_file
+        temp_files = []
+        
+        with open(file_path, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            headers = next(reader)
+            data_types = next(reader)
+            orderby_indices = [headers.index(col) for col in orderby_columns]
+
+            # Sort and write each chunk to a temporary file
+            for chunk in read_csv_in_chunks(file_path, chunk_size):
+                chunk.sort(key=lambda row: tuple(row[index] for index in orderby_indices))
+                temp_file_name = f'temp_{len(temp_files)}.csv'
+                with open(temp_file_name, 'w', newline='', encoding='utf-8') as temp_file:
+                    csv.writer(temp_file).writerows(chunk)
+                temp_files.append(temp_file_name)
+
+        # Merge sorted chunks
+        output_file_path = f'temp_{self.temp_table_count}.csv'
+        with open(output_file_path, 'w', newline='', encoding='utf-8') as outfile:
+            # Write headers and data types
+            writer = csv.writer(outfile)
+            writer.writerow(headers)
+            writer.writerow(data_types)
+
+            # Merge all files
+            files = [open(fname, 'r', newline='', encoding='utf-8') for fname in temp_files]
+            readers = [csv.reader(f) for f in files]
+            sorted_rows = heapq.merge(*readers, key=lambda row: tuple(row[index] for index in orderby_indices))
+            writer.writerows(sorted_rows)
+
+        # Clean up temporary files
+        for f in files:
+            f.close()
+            os.remove(f.name)
+
         self.previous_temp_file = output_file_path
         self.temp_table_count += 1
 
